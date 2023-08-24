@@ -5,7 +5,8 @@ import paho.mqtt.client as mqtt
 
 mqttBroker = 'broker.emqx.io'
 port = '1883'
-topics = 'temperature'
+topic1 = 'home/groundfloor/livingroom/temperature1'
+topic2 = 'home/groundfloor/livingroom/temperature2'
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -45,8 +46,11 @@ client.connect(mqttBroker)
 
 
 while True:
-        client.publish(topics , read_temp())
-        print("Measured temperature value is " + str(read_temp()) + ". Topic is " + topics)
+        client.publish(topic1 , read_temp())
+        client.publish(topic2 , read_temp())
+        print("Measured temperature value is " + str(read_temp()) + ". Topic is " + topic1)
+        print("Measured temperature value is " + str(read_temp()) + ". Topic is " + topic2)
+        
         time.sleep(1)
 
 
